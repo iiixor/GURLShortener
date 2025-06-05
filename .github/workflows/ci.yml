@@ -84,12 +84,12 @@ jobs:
         with:
           images: ${{ env.IMAGE_NAME }}
           tags: |
-            type=schedule,pattern=nightly,enable={{ github.ref == 'refs/heads/main' }}
-            type=ref,event=branch,enable={{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master' }}
+            type=schedule,pattern=nightly,enable=${{ github.ref == 'refs/heads/main' }}
+            type=ref,event=branch,enable=${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master' }}
             type=ref,event=pr
             type=semver,pattern={{version}}
             type=sha,prefix=,suffix=,format=short
-            type=raw,value=latest,enable={{ github.ref == 'refs/heads/main' }}
+            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
